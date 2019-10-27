@@ -17,7 +17,7 @@
                     <button type="button" class="btn btn-outline-primary">7</button>
                     <button type="button" class="btn btn-outline-primary">8</button>
                     <button type="button" class="btn btn-outline-primary">9</button>
-                    <button type="button" class="btn btn-primary">&divide;</button>
+                    <button type="button" class="btn btn-primary" data-action="divide">&divide;</button>
                 </div>
             </div>
             <div class="row">
@@ -25,7 +25,7 @@
                     <button type="button" class="btn btn-outline-primary">4</button>
                     <button type="button" class="btn btn-outline-primary">5</button>
                     <button type="button" class="btn btn-outline-primary">6</button>
-                    <button type="button" class="btn btn-primary">*</button>
+                    <button type="button" class="btn btn-primary" data-action="multiply">*</button>
                 </div>
             </div>
             <div class="row">
@@ -33,28 +33,29 @@
                     <button type="button" class="btn btn-outline-primary">1</button>
                     <button type="button" class="btn btn-outline-primary">2</button>
                     <button type="button" class="btn btn-outline-primary">3</button>
-                    <button type="button" class="btn btn-primary">-</button>
+                    <button type="button" class="btn btn-primary" data-action="subtract">-</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary">.</button>
+                    <button type="button" class="btn btn-primary" data-action="decimal">.</button>
                     <button type="button" class="btn btn-outline-primary">0</button>
-                    <button type="button" class="btn btn-primary">&#177;</button>
-                    <button type="button" class="btn btn-primary">+</button>
+                    <button type="button" class="btn btn-primary" data-action="reverse">&#177;</button>
+                    <button type="button" class="btn btn-primary" data-action="add">+</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-warning btn-wide" style="font-size: 1.5em">&#8656;</button>
-                    <button type="button" class="btn btn-primary">x<sup>2</sup></button>
-                    <button type="button" class="btn btn-primary">&#8730;</button>
+                    <button type="button" class="btn btn-warning btn-wide" data-action="backspace"
+                            style="font-size: 1.5em">&#8656;</button>
+                    <button type="button" class="btn btn-primary" data-action="squared">x<sup>2</sup></button>
+                    <button type="button" class="btn btn-primary" data-action="square-root">&#8730;</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-wide">=</button>
-                    <button type="button" class="btn btn-danger btn-wide">Clear</button>
+                    <button type="button" class="btn btn-success btn-wide" data-action="calculate">=</button>
+                    <button type="button" class="btn btn-danger btn-wide" data-action="clear">Clear</button>
                 </div>
             </div>
             <div class="row display">
