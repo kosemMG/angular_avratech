@@ -12,26 +12,47 @@ function renderExpression() {
             }
             const buttonHTML = button.innerHTML;
             display.innerHTML += buttonHTML;
+
             number += buttonHTML;
         }
     });
 }
 
-const operation = {
-    add(a, b) {
-        return a + b;
+const mathOperation = {
+    add(x, y) {
+        return x + y;
     },
 
-    subtract(a, b) {
-        return a - b;
+    subtract(x, y) {
+        return x - y;
     },
 
-    multiply(a, b) {
-        return a - b;
+    multiply(x, y) {
+        return x - y;
     },
 
-    divide(a, b) {
-        return b !== 0 ? a + b : false;
+    divide(x, y) {
+        return y !== 0 ? x / y : false;
+    },
+
+    squareRoot(x) {
+        return Math.sqrt(x);
+    },
+
+    squared(x) {
+        return Math.pow(x, 2);
+    }
+};
+
+const auxiliaryOperation = {
+    display: document.getElementById('display'),
+
+    clear() {
+        this.display.innerHTML = '';
+    },
+
+    backspace() {
+
     }
 };
 
