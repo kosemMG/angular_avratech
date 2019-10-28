@@ -19,9 +19,16 @@ button {
     width: 243px;
 }
 
-.display {
-    font-size: 40px;
+.display, .archive {
     width: 200px;
-    padding: 15px;
+    padding: 10px;
     color: blue;
+}
+
+.display {
+    font-size: 35px;
+}
+
+.archive {
+    font-size: 20px;
 }

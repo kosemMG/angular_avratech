@@ -79,6 +79,7 @@ const math = {
 
 const auxiliaryOperation = {
     display: document.getElementById('display'),
+    archive: document.getElementById('archive'),
 
     clear() {
         this.display.innerText = '0';
@@ -90,6 +91,11 @@ const auxiliaryOperation = {
 
     renderResult(result) {
         this.display.innerText = result;
+    },
+
+    toArchive(copy, result) {
+        copy = copy.replace(/,/g, '') + result;
+        this.archive.innerHTML += `${copy}<hr>`;
     }
 };
 
@@ -125,8 +131,10 @@ window.onload = () => {
                     numString = numString.slice(0, -1);
                     break;
                 case 'calculate':
+                    const copy = numArray.toString();
                     const total = math.calculate(numArray);
                     auxiliaryOperation.renderResult(total);
+                    auxiliaryOperation.toArchive(copy, total);
                     break;
             }
         }
