@@ -46,6 +46,10 @@ const math = {
         return Math.pow(x, 2);
     },
 
+    opposite(x) {
+        return x * (-1);
+    },
+
     calculate(numArr) {
         let total = 0;
         while (numArr[1] !== '=') {
@@ -66,8 +70,8 @@ const math = {
                 case "÷":
                     total = this.divide(firstOperand, secondOperand);
                     break;
-                // case 'squared':
-                //     return;
+                case 'x2':
+                    total = this.squared(firstOperand);
                 // case 'square-root':
                 //     return;
             }
@@ -93,8 +97,14 @@ const auxiliaryOperation = {
         this.display.innerText = result;
     },
 
+    renderOpposite(opposite) {
+        this.display.innerText = opposite;
+        // TODO finish opposite number render
+    },
+
     toArchive(copy, result) {
         copy = copy.replace(/,/g, '') + result;
+        copy = copy.replace(/x20/g, `<sup>2</sup>`);
         this.archive.innerHTML += `${copy}<hr>`;
     }
 };
@@ -116,11 +126,16 @@ window.onload = () => {
             if (!action) {
                 display.innerHTML += buttonContent;
                 numString += buttonContent;
-            } else if (action !== 'backspace') {
-                display.innerHTML += renderOperator(action);
-                numArray.push(+numString);
+            } else if (action !== 'backspace' && action !== 'opposite') {
+                if (numString !== '') {
+                    numArray.push(+numString);
+                }
                 numString = '';
-                numArray.push(buttonContent);
+                const displayString = display.innerText;
+                if (!Number.isNaN(+displayString[displayString.length - 1])) {
+                    display.innerHTML += renderOperator(action);
+                    numArray.push(buttonContent);
+                }
             }
             switch (action) {
                 case 'clear':
@@ -129,6 +144,10 @@ window.onload = () => {
                 case 'backspace':
                     auxiliaryOperation.backspace();
                     numString = numString.slice(0, -1);
+                    break;
+                case 'opposite':
+                    numString = math.opposite(+numString);
+                    auxiliaryOperation.renderOpposite(numString);
                     break;
                 case 'calculate':
                     const copy = numArray.toString();
