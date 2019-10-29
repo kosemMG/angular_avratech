@@ -149,7 +149,7 @@ window.onload = () => {
             if (!action) {
                 display.innerHTML += buttonContent;
                 numString += buttonContent;
-            } else if (action !== 'backspace' && action !== 'opposite') {
+            } else if (action !== 'backspace' /*&& action !== 'opposite'*/) {
                 display.innerHTML += auxiliaryOperation.renderOperator(action);
                 if (numString !== '') {
                     numArray.push(+numString);
@@ -159,7 +159,12 @@ window.onload = () => {
                     numArray[numArray.length - 1] = buttonContent;
                     display.innerText = display.innerText.slice(0, -2) + buttonContent;
                 } else {
-                    numArray.push(buttonContent);
+                    if (action === 'opposite' && !isNaN(numArray[numArray.length - 1])) {
+                        numArray[numArray.length - 1] = math.opposite(numArray[numArray.length - 1]);
+                        // display.innerText =
+                    } else {
+                        numArray.push(buttonContent);
+                    }
                 }
                 console.log(`numArray: ${numArray}`);
             }
@@ -171,10 +176,12 @@ window.onload = () => {
                     auxiliaryOperation.backspace();
                     numString = numString.slice(0, -1);
                     break;
-                case 'opposite':
-                    numString = math.opposite(+numString);
-                    auxiliaryOperation.renderOpposite(numString);
-                    break;
+                // case 'opposite':
+                //     console.log('numArray', numArray);
+                //     console.log('numString', numString);
+                //     numString = math.opposite(+numString);
+                //     auxiliaryOperation.renderOpposite(numString);
+                //     break;
                 case 'calculate':
                     const copy = numArray.toString();
                     const total = math.calculate(numArray);
