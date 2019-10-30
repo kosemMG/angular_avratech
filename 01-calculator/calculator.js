@@ -38,9 +38,26 @@ const math = {
 
     calculate(numArr) {
         console.log(`math.calculate start numArr: ${numArr}`);
-        let total = 0;
-        while (numArr[1] !== '=') {
-            const firstOperand = numArr[0];
+        // let total = 0;
+        // [2, '*', 2, 2]
+        // while (numArr[1] !== '=') {
+            let totalSum = 0;
+            for (let i = 0; i < numArr.length; i ++) {
+                if (!isNaN(numArr[i])) {
+                    totalSum += numArr[i];
+                } else {
+                    switch (numArr[i]) {
+                        case '*':
+                            totalSum *= numArr[i + 1];
+                            break;
+                        case '÷':
+                            totalSum /= numArr[i + 1];
+                            break;
+                    }
+                    i++;
+                }
+            }
+            /*const firstOperand = numArr[0];
             const sign = numArr[1];
             const secondOperand = numArr[2];
             console.log(`firstOperand = ${firstOperand} sign = ${sign} secondOperand = ${secondOperand}`);
@@ -60,15 +77,20 @@ const math = {
                     break;
                 case 'x2':
                     total = this.squared(firstOperand);
-                // case 'square-root':
-                //     return;
+                    break;
+                case '√':
+                    total = this.squareRoot(firstOperand);
             }
             console.log(`total = ${total}`);
             numArr.splice(0, 3, total);
+            if (numArr.length === 1) {
+                break;
+            }
             console.log(`new numArr: ${numArr}`);
-        }
+        }*/
         console.log('math.calculate end');
-        return numArr[0];
+        // return numArr[0];
+            return totalSum;
     }
 };
 
@@ -89,12 +111,6 @@ const auxiliaryOperation = {
     renderResult(result) {
         console.log('auxiliaryOperation.renderResult');
         this.display.innerText = result;
-    },
-
-    renderOpposite(opposite) {
-        console.log('auxiliaryOperation.opposite');
-        this.display.innerText = opposite;
-        // TODO finish opposite number render
     },
 
     renderOperator(operator) {
@@ -119,17 +135,59 @@ const auxiliaryOperation = {
         }
     },
 
+    modifyOpposite(displayString) {
+        displayString = displayString.replace('--', '+');
+        displayString = displayString.replace('+-', '-');
+        return displayString;
+    },
+
+    updateDisplay(copy) {
+        let displayString = this.display.innerText;
+        displayString = copy.replace(/,/g, '');
+        displayString = this.modifyOpposite(displayString);
+        this.display.innerText = displayString;
+    },
+
     toArchive(copy, result) {
         console.log(`auxiliaryOperation.clear start copy = ${copy} result = ${result}`);
         copy = copy.replace(/,/g, '') + result;
-        copy = copy.replace(/x20/g, `<sup>2</sup>`);
+        copy = copy.replace(/x2/g, `<sup>2</sup>`);
+        copy = this.modifyOpposite(copy);
         this.archive.innerHTML += `${copy}<hr>`;
         console.log(`auxiliaryOperation.clear end`);
+    },
+
+    reformatArray(array) {
+        for (let i = 0; i < array.length; i++) {
+            switch (array[i]) {
+                case '+':
+                    array.splice(i, 1);
+                    break;
+                case '-':
+                    array.splice(i, 1);
+                    array[i] *= -1;
+                    break;
+            }
+        }
+        return array;
+    },
+
+    modifyArrayByPrecedence(array) {
+        for (const el of array) {
+            let newArray = [];
+            if (el === '*' || el === '÷') {
+                const idx = array.indexOf(el);
+                const bufArr = [array[idx - 1], el, array[idx + 1]];
+                array.splice(idx - 1, 3);
+                array = bufArr.concat(array)
+            }
+        }
+        return array;
     }
 };
 
 window.onload = () => {
-    console.log('listening to user\'s click...');
+    console.log('listening to the user\'s click...');
     const display = document.getElementById('display');
     let numArray = [];
     let numString = '';
@@ -142,31 +200,37 @@ window.onload = () => {
             console.log(`chosen action: ${action}`);
             const buttonContent = button.innerText;
             console.log(`clicked button content: ${buttonContent}`);
-            if ((display.innerHTML === '0') || numArray[1] === '=') {
+            if (display.innerHTML === '0' ||
+                numArray[1] === '=' ||
+                numArray.length === 1 &&
+                action !== 'opposite')
+            {
                 numArray = [];
                 display.innerHTML = '';
             }
             if (!action) {
                 display.innerHTML += buttonContent;
                 numString += buttonContent;
-            } else if (action !== 'backspace' /*&& action !== 'opposite'*/) {
+            } else if (action !== 'backspace') {
                 display.innerHTML += auxiliaryOperation.renderOperator(action);
                 if (numString !== '') {
                     numArray.push(+numString);
                 }
                 numString = '';
-                if (isNaN(numArray[numArray.length - 1])) {
+                const lastNumArrayChar = numArray[numArray.length - 1];
+                if (isNaN(lastNumArrayChar) && lastNumArrayChar !== 'x2' && lastNumArrayChar !== '√') { // fix two consecutive operators issue
                     numArray[numArray.length - 1] = buttonContent;
                     display.innerText = display.innerText.slice(0, -2) + buttonContent;
                 } else {
-                    if (action === 'opposite' && !isNaN(numArray[numArray.length - 1])) {
+                    if (action === 'opposite' && !isNaN(lastNumArrayChar)) {
                         numArray[numArray.length - 1] = math.opposite(numArray[numArray.length - 1]);
-                        // display.innerText =
+                        const copy = numArray.toString();
+                        auxiliaryOperation.updateDisplay(copy);
                     } else {
                         numArray.push(buttonContent);
                     }
                 }
-                console.log(`numArray: ${numArray}`);
+                console.log('numArray:', numArray);
             }
             switch (action) {
                 case 'clear':
@@ -176,15 +240,9 @@ window.onload = () => {
                     auxiliaryOperation.backspace();
                     numString = numString.slice(0, -1);
                     break;
-                // case 'opposite':
-                //     console.log('numArray', numArray);
-                //     console.log('numString', numString);
-                //     numString = math.opposite(+numString);
-                //     auxiliaryOperation.renderOpposite(numString);
-                //     break;
                 case 'calculate':
                     const copy = numArray.toString();
-                    const total = math.calculate(numArray);
+                    const total = math.calculate(auxiliaryOperation.modifyArrayByPrecedence(auxiliaryOperation.reformatArray(numArray)));
                     auxiliaryOperation.renderResult(total);
                     auxiliaryOperation.toArchive(copy, total);
                     break;
