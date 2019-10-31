@@ -183,7 +183,6 @@ const auxiliaryOperation = {
     modifyArrayByPrecedence(array) {
         console.log('modifyArrayByPrecedence() start array:', array);
         for (const el of array) {
-            let newArray = [];
             if (el === '*' || el === '÷') {
                 console.log('found:', el);
                 const idx = array.indexOf(el);
@@ -205,7 +204,7 @@ window.onload = () => {
     addEventListener('click', event => {
         // debugger;
         const button = event.target;
-        if (button.tagName === 'BUTTON') {
+        if (button.tagName === 'BUTTON') {      // checks if a button was pressed
             console.log('button was clicked');
             const action = button.dataset.action;
             console.log(`chosen action: ${action}`);
@@ -219,17 +218,17 @@ window.onload = () => {
                 numArray = [];
                 display.innerHTML = '';
             }
-            if (!action) {
+            if (!action) {  // if the number button was pressed
                 display.innerHTML += buttonContent;
                 numString += buttonContent;
-            } else if (action !== 'backspace') {
+            } else if (action !== 'backspace') {    // if the operator button was pressed
                 display.innerHTML += auxiliaryOperation.renderOperator(action);
                 if (numString !== '') {
                     numArray.push(+numString);
                 }
                 numString = '';
                 const lastNumArrayChar = numArray[numArray.length - 1];
-                if (isNaN(lastNumArrayChar) && lastNumArrayChar !== 'x2' && lastNumArrayChar !== '√') { // fix two consecutive operators issue
+                if (isNaN(lastNumArrayChar) && lastNumArrayChar !== 'x2' && lastNumArrayChar !== '√') { // fixes two consecutive operators issue
                     numArray[numArray.length - 1] = buttonContent;
                     display.innerText = display.innerText.slice(0, -2) + buttonContent;
                 } else {

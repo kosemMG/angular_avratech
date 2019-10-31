@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circles</title>
+</head>
+<body>
+<script>
+    const template = document.createElement('template');
+    template.innerHTML = `<style>
+    .big-green-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: green;
+        display: inline-block;
+    }
+    .small-blue-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: blue;
+        display: inline-block;
+    }
+    .medium-red-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: red;
+        display: inline-block;
+    }
+</style>
+    <div class="big-green-circle"></div>
+    <div class="small-blue-circle"></div>
+    <div class="medium-red-circle"></div>`;
+
+    class Circles extends HTMLElement {
+        constructor() {
+            super();
+            this._shadowRoot = this.attachShadow({mode: "open"});
+            this._shadowRoot.appendChild(template.content.cloneNode(true))
+
+        }
+    }
+    window.customElements.define('my-button', Circles);
+</script>
+    <my-button></my-button>
+    <my-button></my-button>
+    <my-button></my-button>
+    <my-button></my-button>
+</body>
+</html>
