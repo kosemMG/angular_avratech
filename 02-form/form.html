@@ -1,0 +1,42 @@
+<style>
+    .container {
+        background-color: lightgray;
+        padding: 20px;
+    }
+
+    label {
+        width: 100px;
+        display: inline-block;
+    }
+
+    span {
+        color: red;
+    }
+
+    h3 {
+        color: pink;
+        background-color: lightgreen;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <p>Please, fill:</p>
+        <h3>Personal Data</h3>
+        <form>
+            <div>
+                <label for="name"><span>*</span>Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div>
+                <label for="email"><span>*</span>Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password"><span>*</span>Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>        
+        </form>
+    </div>
+    <hr>
+</body>
