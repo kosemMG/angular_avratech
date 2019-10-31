@@ -48,7 +48,7 @@
         }
 
         static get observedAttributes() {
-            return ['bg', 'border'];
+            return ['bgcolor', 'border'];
         }
 
         attributeChangedCallback(name, oldValue, newValue) {
@@ -58,14 +58,14 @@
         }
 
         render() {
-            this.$container.style.backgroundColor = this.attrs.bg;
+            this.$container.style.backgroundColor = this.attrs.bgcolor;
             this.$container.style.border = this.attrs.border;
         }
     }
 
-    window.customElements.define('my-button', Circles);
+    window.customElements.define('my-circle', Circles);
 </script>
-<my-button bg="aquamarine"></my-button>
-<my-button border="2px dotted blue"></my-button>
+<my-circle bgcolor="aquamarine"></my-circle>
+<my-circle border="2px dotted blue"></my-circle>
 </body>
 </html>

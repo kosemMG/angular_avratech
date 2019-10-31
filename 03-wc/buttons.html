@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buttons</title>
+</head>
+<body>
+<script>
+    const template = document.createElement('template');
+    template.innerHTML = `
+<style>
+    button {
+        padding: 10px 25px;
+        background-color: mediumseagreen;
+        font-size: 18px;
+        color: white;
+    }
+</style>
+<button>My button</button>
+    `;
+
+    class Button extends HTMLElement {
+        constructor() {
+            super();
+            this._shadowRoot = this.attachShadow({mode: 'open'});
+            this._shadowRoot.appendChild(template.content.cloneNode(true));
+            this.$button = this._shadowRoot.querySelector('button');
+            this.attrs = {};
+
+            this.$button.addEventListener('click', () => {
+                console.log('button has been clicked');
+                this.dispatchEvent(
+                    new CustomEvent('clicked', {
+                        detail: 'The button has been clicked!'
+                    })
+                );
+            });
+        }
+
+        static get observedAttributes() {
+            return ['bgcolor'];
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            console.log(`attribute ${name} has been changed from ${oldValue} to ${newValue}`);
+            this.attrs[name] = newValue;
+            this.render();
+        }
+
+        render() {
+            this.style.backgroundColor = this.attrs.bgcolor;
+        }
+    }
+    window.customElements.define('my-button', Button);
+</script>
+<my-button id="first-button" bgcolor="pink"></my-button>
+<my-button id="second-button" bgcolor="lightgray"></my-button>
+<my-button id="third-button" bgcolor="lightgreen"></my-button>
+
+<script>
+    const firstButton = document.getElementById('first-button');
+    const secondButton = document.getElementById('second-button');
+    const thirdButton = document.getElementById('third-button');
+
+    firstButton.addEventListener('clicked', value => {
+        alert(value.detail);
+    });
+    secondButton.addEventListener('clicked', value => {
+        console.log(value);
+    });
+    thirdButton.addEventListener('clicked', value => {
+        alert(value.timeStamp);
+    });
+</script>
+</body>
+</html>
