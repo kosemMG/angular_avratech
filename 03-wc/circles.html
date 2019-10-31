@@ -7,7 +7,8 @@
 <body>
 <script>
     const template = document.createElement('template');
-    template.innerHTML = `<style>
+    template.innerHTML = `
+<style>
     .big-green-circle {
         width: 200px;
         height: 200px;
@@ -30,22 +31,41 @@
         display: inline-block;
     }
 </style>
+<div class="container">
     <div class="big-green-circle"></div>
     <div class="small-blue-circle"></div>
-    <div class="medium-red-circle"></div>`;
+    <div class="medium-red-circle"></div>
+</div>
+    `;
 
     class Circles extends HTMLElement {
         constructor() {
             super();
             this._shadowRoot = this.attachShadow({mode: "open"});
             this._shadowRoot.appendChild(template.content.cloneNode(true));
+            this.$container = this._shadowRoot.querySelector('.container');
+            this.attrs = {};
+        }
+
+        static get observedAttributes() {
+            return ['bg', 'border'];
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            console.log(`attribute ${name} has been changed from ${oldValue} to ${newValue}`);
+            this.attrs[name] = newValue;
+            this.render();
+        }
+
+        render() {
+            this.$container.style.backgroundColor = this.attrs.bg;
+            this.$container.style.border = this.attrs.border;
         }
     }
+
     window.customElements.define('my-button', Circles);
 </script>
-    <my-button></my-button>
-    <my-button></my-button>
-    <my-button></my-button>
-    <my-button></my-button>
+<my-button bg="aquamarine"></my-button>
+<my-button border="2px dotted blue"></my-button>
 </body>
 </html>
