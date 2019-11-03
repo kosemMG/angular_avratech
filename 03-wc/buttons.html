@@ -38,7 +38,7 @@
         }
 
         static get observedAttributes() {
-            return ['bgcolor'];
+            return ['bgcolor', 'label'];
         }
 
         attributeChangedCallback(name, oldValue, newValue) {
@@ -48,14 +48,16 @@
         }
 
         render() {
-            this.style.backgroundColor = this.attrs.bgcolor;
+            this.$button.innerText = this.attrs.label;
+            this.$button.style.backgroundColor = this.attrs.bgcolor;
         }
     }
     window.customElements.define('my-button', Button);
 </script>
-<my-button id="first-button" bgcolor="pink"></my-button>
-<my-button id="second-button" bgcolor="lightgray"></my-button>
-<my-button id="third-button" bgcolor="lightgreen"></my-button>
+
+<my-button id="first-button" bgcolor="red" label="Click Me 1"></my-button>
+<my-button id="second-button" bgcolor="grey" label="Click Me 2"></my-button>
+<my-button id="third-button" bgcolor="green" label="Click Me 3"></my-button>
 
 <script>
     const firstButton = document.getElementById('first-button');
@@ -63,10 +65,10 @@
     const thirdButton = document.getElementById('third-button');
 
     firstButton.addEventListener('clicked', value => {
-        alert(value.detail);
+        console.log(value);
     });
     secondButton.addEventListener('clicked', value => {
-        console.log(value);
+        alert(value.detail);
     });
     thirdButton.addEventListener('clicked', value => {
         alert(value.timeStamp);
