@@ -1,3 +1,5 @@
+"use strict";
+
 class Destinations extends Data {
     constructor(source, container = 'destinations') {
         console.log('Destinations.constructor() start | source:', source, 'container:', container);

@@ -1,3 +1,5 @@
+"use strict";
+
 class Orders extends Data {
     constructor(container = 'orders') {
         super();

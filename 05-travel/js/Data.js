@@ -1,3 +1,5 @@
+"use strict";
+
 class Data {
     constructor(source, container) {
         console.log('Data.constructor() start | container:', container);
