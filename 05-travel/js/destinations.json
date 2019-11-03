@@ -1,0 +1,24 @@
+{
+    "destinations": [
+        {
+            "id": 1,
+            "name": "London",
+            "price": 300
+        },
+        {
+            "id": 2,
+            "name": "Paris",
+            "price": 250
+        },
+        {
+            "id": 3,
+            "name": "Madrid",
+            "price": 150
+        },
+        {
+            "id": 4,
+            "name": "Rome",
+            "price": 200
+        },
+    ]
+}
