@@ -13,13 +13,13 @@ try {
 
     const searchByNameButton = document.getElementById('search-name-btn');
     searchByNameButton.addEventListener('click', () => {
-        const searchByNameOrders = new Search(ordersData.orders, 'search-name', 'orders-search-name');
-        // searchByNameOrders.render();
+        const searchByNameOrders = new Search('name', ordersData.orders,
+            'search-name', 'orders-search-name');
     });
 
-    const searchByDestinationButton = document.getElementById('search-destination-btn');
-    searchByDestinationButton.addEventListener('click', () => {
-        const searchByDestinationOrders = new DestinationsSearch(data.destinations, ordersData.orders,
+    const searchByDestinationSelect = document.getElementById('search-destination');
+    searchByDestinationSelect.addEventListener('change', () => {
+        const searchByDestinationOrders = new Search('destination', ordersData.orders,
             'search-destination', 'orders-search-destination');
     });
 } catch (error) {

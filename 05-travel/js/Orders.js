@@ -1,9 +1,9 @@
 "use strict";
 
 class Orders extends Data {
-    constructor(destinations, source = null, container = 'orders') {
-        console.log('Orders.constructor() start | source:', source, ', container:', container, ', destinations', destinations);
-        super(source, container);
+    constructor(destinations, container = 'orders') {
+        console.log('Orders.constructor() start | container:', container, ', destinations', destinations);
+        super(container);
         this.destinations = destinations;
         this.template = ['id', 'name', 'personalID', 'destination', 'passengersNumber', 'total'];
         this.orders = [];

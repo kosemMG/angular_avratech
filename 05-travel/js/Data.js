@@ -1,8 +1,8 @@
 "use strict";
 
 class Data {
-    constructor(source, container) {
-        console.log('Data.constructor() start | source',  source, 'container:', container);
+    constructor(container) {
+        console.log('Data.constructor() start | container:', container);
         this.container = container;
     }
 
@@ -10,7 +10,11 @@ class Data {
         let dataHTML = '<tr>';
         data.forEach(dataItem => {
             for (const templateItem of template) {
-                dataHTML += `<td>${templateItem}</td>`.replace(templateItem, dataItem[templateItem]);
+                if (templateItem === 'price' || templateItem === 'total') {
+                    dataHTML += `<td>${templateItem}</td>`.replace(templateItem, '$' + dataItem[templateItem]);
+                } else {
+                    dataHTML += `<td>${templateItem}</td>`.replace(templateItem, dataItem[templateItem]);
+                }
             }
             dataHTML += '</tr>';
         });

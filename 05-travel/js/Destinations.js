@@ -1,20 +1,22 @@
 "use strict";
 
 class Destinations extends Data {
-    constructor(source, container = 'destinations') {
+    constructor(source, container = 'destinations', select = 'search-destination') {
         console.log('Destinations.constructor() start | source:', source, 'container:', container);
-        super(source, container);
+        super(container);
         this.source = source;
+        this.select = select;
         this.template = ['id', 'name', 'price'];
         this.destinations = [];
-        this._init(this.source);
+        this._init();
     }
 
-    _init(source) {
-        console.log('Destinations._init() start source:', source);
+    _init() {
+        console.log('Destinations._init() start source:', this.source);
         this.destinationsTable = document.getElementById(this.container);
+        this.destinationsSelectElement = document.getElementById(this.select);
 
-        fetch(source)
+        fetch(this.source)
             .then(result => result.json())
             .then(data => {
                 for (let destination of data.destinations) {
@@ -23,20 +25,18 @@ class Destinations extends Data {
             })
             .then(() => {
                 this.destinationsTable.innerHTML = this._arrangeHTML(this.destinations, this.template);
+            })
+            .then(() => {
+                this._renderSelect();
             });
     }
 
-    // _render(destinations) {
-    //     let destinationRowTemplate = '<tr><td>#ID</td><td>#NAME</td><td>#PRICE</td></tr>';
-    //     let destinationsHTML = '';
-    //
-    //     destinations.forEach(destination => {
-    //         destinationsHTML += destinationRowTemplate
-    //             .replace('#ID', destination.id)
-    //             .replace('#NAME', destination.name)
-    //             .replace('#PRICE', destination.price)
-    //     });
-    //
-    //     this.destinationsTable.innerHTML = destinationsHTML;
-    // }
+    _renderSelect() {
+        console.log('Destinations._renderSelect() start');
+        let dataHTML = '<option selected>Choose the destination</option>';
+        this.destinations.forEach(destination => {
+            dataHTML += `<option value="${destination.id}">${destination.name}</option>`
+        });
+        this.destinationsSelectElement.innerHTML = dataHTML;
+    }
 }
