@@ -4,49 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <title>Travel Agency</title>
 </head>
 <body>
-<div class="app flex-col">
+<div class="container">
     <div class="flex">
-        <div class="table-destinations">
-            <table>
-                <thead>
+        <div class="destinations-table">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
                 <tr>
-                    <td>Travel Code</td>
-                    <td>Travel Name</td>
-                    <td>Price</td>
+                    <th scope="col">ID</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Price</th>
                 </tr>
                 </thead>
                 <tbody id="destinations"></tbody>
             </table>
         </div>
-        <div class="form-registration">
-            sdf
+        <div class="order-form">
+            <form id="order-form">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-4 col-form-label">Name:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="name" placeholder="Your name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="personal-id" class="col-sm-4 col-form-label">Personal ID:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="personal-id" placeholder="Your personal ID">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="travel-id" class="col-sm-4 col-form-label">Travel ID:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="travel-id" placeholder="Destination ID">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="passengers-number" class="col-sm-4 col-form-label">Passengers number:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="passengers-number"
+                               placeholder="Number of passengers">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="order-btn">Order</button>
+            </form>
         </div>
     </div>
     <div class="flex">
-        <div class="table-orders">
-            <table>
-                <thead>
+        <div class="orders-table">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
                 <tr>
-                    <td>Travel Code</td>
-                    <td>Travel Name</td>
-                    <td>Price</td>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Personal ID</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Passengers number</th>
+                    <th scope="col">Total</th>
                 </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="orders"></tbody>
             </table>
         </div>
-        <div class="form-search">
-            asdf
+    </div>
+    <div class="flex">
+        <div class="search-form">
+            <h2>Search by name</h2>
+            <div class="form-group row">
+                <label for="search-name" class="col-sm-4 col-form-label">Name:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="search-name" placeholder="Your name">
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary">Search</button>
         </div>
+    </div>
+    <div class="orders-table">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Personal ID</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Passengers number</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody id="orders-search-name"></tbody>
+        </table>
+    </div>
+    <div class="flex">
+        <div class="search-form">
+            <h2>Search by destination</h2>
+            <div class="form-group row">
+                <label for="search-destination" class="col-sm-4 col-form-label">Destination:</label>
+                <div class="col-sm-8">
+                    <select class="custom-select" id="search-destination">
+                        <option selected>Choose the destination</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+    <div class="orders-table">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Personal ID</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Passengers number</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody id="orders-search-destination"></tbody>
+        </table>
     </div>
 </div>
 <script src="js/Data.js"></script>
 <script src="js/Destinations.js"></script>
 <script src="js/Orders.js"></script>
+<script src="js/OrderTrip.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,19 +1,23 @@
+body {
+    margin-top: 50px;
+}
+
 .flex {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-bottom: 100px;
 }
 
-.flex-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}    
-
-table {
-    border: 1px dashed brown;
-    margin-bottom: 80px;
+.table .thead-dark th {
+    background-color: #526080;
+    border-color: #000;
 }
 
-.flex > div {
-    background-color: yellow;
+.destinations-table, .order-form, .search-form {
+    width: 45%;
+}
+
+.orders-table {
+    width: 100%;
+    margin-bottom: 50px;
 }

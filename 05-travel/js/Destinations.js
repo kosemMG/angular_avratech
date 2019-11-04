@@ -22,7 +22,7 @@ class Destinations extends Data {
                 }
             })
             .then(() => {
-                this.destinationsTable.innerHTML = this._getDataHTML(this.destinations, this.template);
+                this.destinationsTable.innerHTML = this._arrangeHTML(this.destinations, this.template);
             });
     }
 
