@@ -13,13 +13,14 @@ try {
 
     const searchByNameButton = document.getElementById('search-name-btn');
     searchByNameButton.addEventListener('click', () => {
-        const searchByNameOrders = new SearchByName(ordersData.orders);
+        const searchByNameOrders = new Search(ordersData.orders, 'search-name', 'orders-search-name');
         // searchByNameOrders.render();
     });
 
     const searchByDestinationButton = document.getElementById('search-destination-btn');
     searchByDestinationButton.addEventListener('click', () => {
-        // const searchByDestinationOrders = new
+        const searchByDestinationOrders = new DestinationsSearch(data.destinations, ordersData.orders,
+            'search-destination', 'orders-search-destination');
     });
 } catch (error) {
     console.error(error);

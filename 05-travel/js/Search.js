@@ -1,18 +1,20 @@
 class Search extends Data {
-    constructor(orders, /*inputContainer = 'search-name', foundOrdersContainer = 'orders-search-name',*/) {
+    constructor(orders, inputContainer, foundOrdersContainer) {
         super(null, null);
         this.orders = orders;
-        // this.inputContainer = inputContainer;
-        // this.foundOrdersOrdersContainer = foundOrdersContainer;
+        this.inputContainer = inputContainer;
+        this.foundOrdersContainer = foundOrdersContainer;
         this.foundOrders = [];
         this.template = ['id', 'name', 'personalID', 'destination', 'passengersNumber', 'total'];
+        this._init();
     }
 
-    init(inputContainer, foundOrdersContainer) {
-        this.searchInput = document.getElementById(inputContainer);
-        this.foundOrdersTable = document.getElementById(foundOrdersContainer);
+    _init() {
+        this.searchInput = document.getElementById(this.inputContainer);
+        this.foundOrdersTable = document.getElementById(this.foundOrdersContainer);
         console.log('Search._init() | searchInput:', this.searchInput);
         this._searchOrders();
+        this._render();
     }
 
     _searchOrders() {
@@ -23,7 +25,7 @@ class Search extends Data {
         }
     }
 
-    render() {
+    _render() {
         console.log('Orders.render() | orders: ', this.foundOrders);
         this.foundOrdersTable.innerHTML = this._arrangeHTML(this.foundOrders, this.template);
         let tableTotal = '<tr>';
