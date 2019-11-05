@@ -1,9 +1,9 @@
 "use strict";
 
-const data = new Destinations('js/destinations.json');
-const ordersData = new Orders(data.destinations);
-
 try {
+    const data = new Destinations('js/destinations.json');
+    const ordersData = new Orders(data.destinations);
+
     const orderButton = document.getElementById('order-btn');
     orderButton.addEventListener('click',() => {
         const order = new OrderTrip();
