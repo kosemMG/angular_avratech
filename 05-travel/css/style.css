@@ -25,3 +25,8 @@ body {
 .noborder {
     border: none;
 }
+
+#btn {
+    background: url('/05-travel/img/plane.jpg') no-repeat;
+    background-size: contain;
+}

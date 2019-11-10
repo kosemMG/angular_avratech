@@ -1,0 +1,21 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+}
+.flex-one {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 100px;
+}
+.flex-two {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+.flex-three {
+  display: flex;
+  justify-content: space-between;
+}
+
